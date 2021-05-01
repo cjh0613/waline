@@ -1,4 +1,5 @@
-import { parseEmoji, emojiCDN, emojiMaps } from '../src/utils';
+import { emojiCDN, emojiMaps } from '../src/config/default';
+import { parseEmoji } from '../src/utils';
 
 describe('Emoji test', () => {
   it('Should not parse', () => {

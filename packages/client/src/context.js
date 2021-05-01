@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { emojiCDN, emojiMaps } from './config/default';
 import locales from './i18n';
-import { emojiCDN, emojiMaps, gravatarSetting } from './utils';
+import { gravatarSetting } from './config/constant';
 
 export const ConfigContext = React.createContext({
   locales,
@@ -59,7 +60,7 @@ export default function Context(props) {
     uploadImage:
       typeof props.uploadImage === 'function'
         ? props.uploadImage
-        : function (file) {
+        : (file) => {
             const formData = new FormData();
             formData.append('image', file);
 

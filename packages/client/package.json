@@ -31,6 +31,7 @@
     ]
   },
   "devDependencies": {
+    "@types/autosize": "^3.0.7",
     "anujs": "^1.7.4",
     "autosize": "^4.0.2",
     "classnames": "^2.2.6",

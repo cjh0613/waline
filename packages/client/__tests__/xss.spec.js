@@ -1,4 +1,5 @@
-import { emojiCDN, emojiMaps, getMarkdownParser } from '../src/utils';
+import { emojiCDN, emojiMaps } from '../src/config/default';
+import { getMarkdownParser } from '../src/utils';
 
 const ctx = { emojiCDN, emojiMaps };
 const parser = getMarkdownParser(false, ctx);

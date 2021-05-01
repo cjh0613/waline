@@ -15,95 +15,13 @@ import {
   parseEmoji,
   postComment,
 } from '../utils';
+import {
+  insertAtCaret as _insertAtCaret,
+  onPasteFactory,
+} from '../utils/dom.ts';
+import { store } from '../utils/store.ts';
 
-const CACHE_KEY = 'ValineCache';
-const META = ['nick', 'mail', 'link'];
-const store = {
-  getItem(key) {
-    let s = localStorage.getItem(CACHE_KEY);
-    if (!s) {
-      return;
-    }
-
-    try {
-      s = JSON.parse(s);
-      return s[key];
-    } catch (e) {
-      return;
-    }
-  },
-  setItem(comment) {
-    localStorage.setItem(CACHE_KEY, JSON.stringify(comment));
-  },
-};
-
-function _insertAtCaret(field, val) {
-  if (document.selection) {
-    //For browsers like Internet Explorer
-    field.focus();
-    let sel = document.selection.createRange();
-    sel.text = val;
-    field.focus();
-  } else if (field.selectionStart || field.selectionStart === 0) {
-    //For browsers like Firefox and Webkit based
-    let startPos = field.selectionStart;
-    let endPos = field.selectionEnd;
-    let scrollTop = field.scrollTop;
-    field.value =
-      field.value.substring(0, startPos) +
-      val +
-      field.value.substring(endPos, field.value.length);
-    field.focus();
-    field.selectionStart = startPos + val.length;
-    field.selectionEnd = startPos + val.length;
-    field.scrollTop = scrollTop;
-  } else {
-    field.focus();
-    field.value += val;
-  }
-}
-
-function onPasteFactory(
-  editorRef,
-  uploadImage = new Function(),
-  insertAtCaret,
-  onChange
-) {
-  return function (e) {
-    const field = editorRef.current;
-    const clipboardData =
-      'clipboardData' in e
-        ? e.clipboardData
-        : (e.originalEvent && e.originalEvent.clipboardData) ||
-          window.clipboardData;
-    const files = [];
-    const items = clipboardData && clipboardData.items;
-    if (items && items.length) {
-      // 检索剪切板items
-      for (let i = 0; i < items.length; i++) {
-        if (items[i].type.indexOf('image') !== -1) {
-          files.push(items[i].getAsFile());
-          break;
-        }
-      }
-    }
-    if (files.length) {
-      files.forEach((file) => {
-        const uploadText = `![Uploading ${file['name']}]()`;
-        insertAtCaret(field, uploadText);
-        return Promise.resolve()
-          .then(() => uploadImage(file))
-          .then((ret) => {
-            field.value = field.value.replace(
-              uploadText,
-              `\r\n![${file.name}](${ret.data || ret})`
-            );
-            onChange({ target: field });
-          });
-      });
-    }
-  };
-}
+const metas = ['nick', 'mail', 'link'];
 
 export default function ({
   placeholder,
@@ -141,7 +59,7 @@ export default function ({
   const [submitting, setSubmitting] = useState(false);
   const ctx = useContext(ConfigContext);
 
-  const metaFields = meta.filter((kind) => META.indexOf(kind) > -1);
+  const metaFields = meta.filter((kind) => metas.indexOf(kind) > -1);
 
   const parser = getMarkdownParser(highlight, ctx);
 
@@ -222,6 +140,7 @@ export default function ({
     }
 
     comment.comment = parseEmoji(comment.comment, ctx.emojiMaps, ctx.emojiCDN);
+
     if (replyId && rootId) {
       comment.pid = replyId;
       comment.rid = rootId;
@@ -229,6 +148,7 @@ export default function ({
     }
 
     setSubmitting(true);
+
     postComment({ serverURL, token: ctx.userInfo.token, comment }).then(
       (resp) => {
         setSubmitting(false);
@@ -304,7 +224,9 @@ export default function ({
       }
 
       const userInfo = { ...ctx.userInfo, ...data };
+
       ctx.setUserInfo(userInfo);
+
       [localStorage, sessionStorage]
         .filter((store) => store.getItem('WALINE_USER'))
         .forEach((store) =>

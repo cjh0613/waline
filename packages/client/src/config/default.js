@@ -75,9 +75,3 @@ export const emojiMaps = {
   come: '42/2018new_guolai_thumb.png',
   punch: '86/2018new_quantou_thumb.png',
 };
-
-export const gravatarSetting = {
-  cdn: 'https://cdn.v2ex.com/gravatar/',
-  ds: ['mp', 'identicon', 'monsterid', 'wavatar', 'robohash', 'retro', ''],
-  params: '',
-};
