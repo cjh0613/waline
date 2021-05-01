@@ -158,6 +158,19 @@ module.exports = {
       await restart();
     });
 
+    const walineWatcher = chokidar.watch(
+      '../../packages/client/dist/Waline.min.js',
+      {
+        cwd: __dirname,
+        ignoreInitial: true,
+      }
+    );
+
+    walineWatcher.on('change', async (file) => {
+      logger.info(`file ${file} is modified`);
+      await restart();
+    });
+
     watchers.push(navbarWatcher, sidebarWatcher);
   },
 };

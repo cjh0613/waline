@@ -4,10 +4,12 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 const { version } = require('./package.json');
 
 const pkgName = 'Waline';
+
 module.exports = {
   entry: {
     [pkgName + '.min']: path.resolve(__dirname, 'src/index.js'),
   },
+
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
@@ -15,31 +17,50 @@ module.exports = {
     libraryExport: 'default',
     libraryTarget: 'umd',
   },
-  // resolve: {
-  //   alias: {
-  //     'react': 'anujs',
-  //     'react-dom': 'anujs',
-  //     'prop-types': 'anujs/lib/ReactPropTypes',
-  //     'create-react-class': 'anujs/lib/createClass',
-  //   }
-  // },
+
+  resolve: {
+    alias: {
+      react: 'anujs',
+      'react-dom': 'anujs',
+      'prop-types': 'anujs/lib/ReactPropTypes',
+      'create-react-class': 'anujs/lib/createClass',
+    },
+    extensions: ['.ts', '.tsx', '.js'],
+  },
+
+  devtool: 'source-map',
+
   module: {
     rules: [
+      {
+        test: /\.scss$/,
+        use: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader',
+            options: { sourceMap: false },
+          },
+          {
+            loader: 'sass-loader',
+            options: { sourceMap: false },
+          },
+        ],
+      },
+      {
+        test: /\.tsx?$/,
+        use: [
+          { loader: 'babel-loader?cacheDirectory' },
+          { loader: 'ts-loader' },
+        ],
+      },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: 'babel-loader?cacheDirectory',
       },
-      {
-        test: /\.scss$/,
-        use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'sass-loader' },
-        ],
-      },
     ],
   },
+
   plugins: [
     new webpack.DefinePlugin({ VERSION: JSON.stringify(version) }),
     new htmlWebpackPlugin({
@@ -72,6 +93,7 @@ module.exports = {
       `,
     }),
   ],
+
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,

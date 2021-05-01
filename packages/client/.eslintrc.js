@@ -24,4 +24,65 @@ module.exports = {
   rules: {
     'react/prop-types': 'off',
   },
+
+  overrides: [
+    {
+      files: '*.ts',
+      extends: [
+        'plugin:@typescript-eslint/eslint-recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        'plugin:prettier/recommended',
+      ],
+
+      plugins: ['@typescript-eslint'],
+
+      parser: '@typescript-eslint/parser',
+
+      parserOptions: {
+        project: path.resolve(__dirname, './tsconfig.json'),
+      },
+
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': [
+          'warn',
+          {
+            allowTypedFunctionExpressions: true,
+          },
+        ],
+        '@typescript-eslint/naming-convention': [
+          'warn',
+          {
+            selector: 'default',
+            format: ['camelCase'],
+            leadingUnderscore: 'allow',
+            trailingUnderscore: 'allow',
+          },
+          {
+            selector: ['variable', 'parameter'],
+            format: ['camelCase', 'UPPER_CASE'],
+            leadingUnderscore: 'allow',
+            trailingUnderscore: 'allow',
+          },
+          {
+            selector: 'property',
+            format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
+            leadingUnderscore: 'allow',
+            trailingUnderscore: 'allow',
+          },
+          {
+            selector: 'typeLike',
+            format: ['PascalCase'],
+          },
+        ],
+
+        '@typescript-eslint/no-explicit-any': [
+          'warn',
+          { ignoreRestArgs: true },
+        ],
+
+        '@typescript-eslint/no-unsafe-member-access': 'warn',
+      },
+    },
+  ],
 };
