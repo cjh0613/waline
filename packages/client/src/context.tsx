@@ -8,7 +8,13 @@ import {
   locales,
 } from './config';
 
-import type { EmojiMaps, Locale, UploadImage, WalineOptions } from './config';
+import type {
+  EmojiMaps,
+  Locale,
+  Locales,
+  UploadImage,
+  WalineOptions,
+} from './config';
 
 const USER_KEY = 'WALINE_USER';
 
@@ -32,7 +38,7 @@ export interface UserInfo {
 }
 
 export interface Context {
-  locales: Record<string, Locale>;
+  locales: Locales;
   locale: Locale;
   lang: string;
   wordLimit: [number, number] | false;

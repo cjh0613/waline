@@ -7,7 +7,9 @@ import type { Locale } from './typings';
 
 export * from './typings';
 
-export const locales: Record<string, Locale> = {
+export type Locales = Record<string, Locale>;
+
+export const locales: Locales = {
   zh: zhCN,
   'zh-cn': zhCN,
   'zh-CN': zhCN,
