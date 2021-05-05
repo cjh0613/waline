@@ -1,4 +1,4 @@
-export type Comment = Record<string, unknown>;
+import type { Comment } from '../typings';
 
 const CACHE_KEY = 'ValineCache';
 

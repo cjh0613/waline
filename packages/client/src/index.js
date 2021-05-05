@@ -65,12 +65,12 @@ export default function Waline({
   try {
     path = decodeURI(path);
   } catch (e) {
-    //ignore error
+    // ignore error
   }
-  //compat multiple slash
+  // compat multiple slash
   serverURL = serverURL.replace(/\/+$/, '');
 
-  //visitor count
+  // visitor count
   if (visitor) {
     const addPromise = Visitor.post({ serverURL, path });
 
@@ -99,7 +99,7 @@ export default function Waline({
     }
   }
 
-  //comment count
+  // comment count
   const $counts = [].filter.call(
     document.querySelectorAll('.waline-comment-count'),
     (el) => {
@@ -112,6 +112,7 @@ export default function Waline({
       return true;
     }
   );
+
   if ($counts.length) {
     const paths = $counts.map((el) => {
       let path = el.getAttribute('data-xid') || el.getAttribute('id');
@@ -123,7 +124,7 @@ export default function Waline({
       return path;
     });
 
-    fetchCount({ serverURL, path: paths }).then((counts) => {
+    fetchCount({ serverURL, paths }).then((counts) => {
       if (!Array.isArray(counts)) {
         counts = [counts];
       }
