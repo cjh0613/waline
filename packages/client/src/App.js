@@ -4,12 +4,10 @@ import CommentCard from './components/CommentCard';
 import { ConfigContext } from './context';
 import { fetchList } from './utils';
 
-function App({ boxConfig, listConfig, copyRight }) {
+const App = ({ boxConfig, listConfig, copyRight }) => {
   const ctx = useContext(ConfigContext);
   const [{ page, count, totalPages, loading, data }, dispatch] = useReducer(
-    function (state, action) {
-      return { ...state, ...action };
-    },
+    (state, action) => ({ ...state, ...action }),
     { page: 1, totalPages: 0, count: 0, loading: true, data: [] }
   );
 
@@ -46,9 +44,11 @@ function App({ boxConfig, listConfig, copyRight }) {
     (comment) => {
       if (comment.rid) {
         const cmt = data.find(({ objectId }) => objectId === comment.rid);
+
         if (!cmt) {
           return;
         }
+
         if (!Array.isArray(cmt.children)) {
           cmt.children = [];
         }
@@ -115,6 +115,6 @@ function App({ boxConfig, listConfig, copyRight }) {
       ) : null}
     </div>
   );
-}
+};
 
 export default App;

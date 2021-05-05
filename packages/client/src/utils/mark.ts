@@ -2,7 +2,7 @@ import DOMPurify from 'dompurify';
 import hanabi from 'hanabi';
 import marked from 'marked';
 
-import type { EmojiMaps } from '../typings';
+import type { EmojiMaps } from '../config';
 
 interface Context {
   emojiCDN: string;

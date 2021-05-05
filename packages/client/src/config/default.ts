@@ -1,7 +1,9 @@
-export const emojiCDN =
+import { EmojiMaps } from './options';
+
+export const defaultEmojiCDN =
   'https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/';
 
-export const emojiMaps = {
+export const defaultEmojiMaps: EmojiMaps = {
   smile: 'e3/2018new_weixioa02_org.png',
   lovely: '09/2018new_keai_org.png',
   happy: '1e/2018new_taikaixin_org.png',
@@ -74,4 +76,24 @@ export const emojiMaps = {
   bow: 'e7/2018new_zuoyi_org.png',
   come: '42/2018new_guolai_thumb.png',
   punch: '86/2018new_quantou_thumb.png',
+};
+
+export const defaultGravatarSetting = {
+  cdn: 'https://cdn.v2ex.com/gravatar/',
+  ds: ['mp', 'identicon', 'monsterid', 'wavatar', 'robohash', 'retro', ''],
+  params: '',
+};
+
+export const defaultLang = 'zh-CN';
+
+export const defaultUploadImage = (file: File): Promise<string> => {
+  const formData = new FormData();
+  formData.append('image', file);
+
+  return fetch('https://pic.alexhchu.com/api/upload', {
+    method: 'POST',
+    body: formData,
+  })
+    .then((resp) => resp.json())
+    .then((resp: { data: { url: string } }) => resp.data.url);
 };

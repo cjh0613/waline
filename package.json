@@ -12,7 +12,7 @@
     "docs:build": "vuepress build docs",
     "docs:dev": "vuepress dev docs",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "lint": "eslint --ext .js,.ts --fix . && prettier --check --write .",
+    "lint": "eslint --ext .js,.ts,.tsx --fix . && prettier --check --write .",
     "lint:check": "eslint --ext .js,.ts . && prettier --check .",
     "prepare": "husky install",
     "test": "jest -i"

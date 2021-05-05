@@ -3,7 +3,7 @@ import { fetchVisitCount, postVisitCount } from './fetch';
 import type { VisitCountOptions } from './fetch';
 
 export const Visitor = {
-  post({ serverURL, path }: VisitCountOptions) {
+  post({ serverURL, path }: VisitCountOptions): Promise<number> | null {
     if (!serverURL || !path) {
       return null;
     }

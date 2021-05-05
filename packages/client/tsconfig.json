@@ -3,7 +3,8 @@
   "compilerOptions": {
     "module": "ESNext",
     "declarationDir": "./types",
+    "jsx": "react",
     "rootDir": "./src"
   },
-  "include": ["./src/**/*.ts"]
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"]
 }

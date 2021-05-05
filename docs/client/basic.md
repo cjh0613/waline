@@ -5,14 +5,14 @@
 - 类型: `string`
 - 必填: 是
 
-Waline 的初始化挂载器。必须是一个有效的 **CSS 选择器**。
+Waline 的初始化挂载器。必须是一个有效的 **CSS 选择器**
 
 ## serverURL
 
 - 类型: `string`
 - 必填: 是
 
-Waline 的服务端地址。
+Waline 的服务端地址
 
 ## placeholder
 
@@ -20,7 +20,7 @@ Waline 的服务端地址。
 - 默认值: `'撰写评论...'`
 - 必填: 否
 
-评论框 **占位提示符**。
+评论框 **占位提示符**
 
 ## wordLimit
 
@@ -28,7 +28,9 @@ Waline 的服务端地址。
 - 默认值：`0`
 - 必要性：`false`
 
-评论字数限制。填入单个数字时为最大字数限制。设置为 `0` 时无限制。
+评论字数限制。填入单个数字时为最大字数限制
+
+设置为 `0` 时无限制
 
 ## path
 
@@ -36,7 +38,7 @@ Waline 的服务端地址。
 - 默认值: `window.location.pathname`
 - 必填: 否
 
-当前 _文章页_ 路径，用于区分不同的 _文章页_，以保证正确读取该 _文章页_ 下的评论列表。
+当前 _文章页_ 路径，用于区分不同的 _文章页_，以保证正确读取该 _文章页_ 下的评论列表
 
 可选值:
 
@@ -54,7 +56,7 @@ Waline 的服务端地址。
 - 默认值: `mp`
 - 必填: 否
 
-[Gravatar](http://cn.gravatar.com/) 头像展示方式。
+[Gravatar](http://cn.gravatar.com/) 头像展示方式
 
 可选值:
 
@@ -67,7 +69,7 @@ Waline 的服务端地址。
 - `'robohash'`
 - `'hide'`
 
-更多信息，请查看 [头像配置](./avatar.md)。
+更多信息，详见 [头像配置](./avatar.md)
 
 ## meta
 
@@ -75,7 +77,9 @@ Waline 的服务端地址。
 - 默认值: `['nick', 'mail', 'link']`
 - 必填: 否
 
-评论者相关属性。可选值: `'nick'`, `'mail'`, `'link'`
+评论者相关属性
+
+可选值: `'nick'`, `'mail'`, `'link'`
 
 ## pageSize
 
@@ -83,7 +87,7 @@ Waline 的服务端地址。
 - 默认值: `10`
 - 必填: 否
 
-评论列表分页，每页条数。
+评论列表分页，每页条数
 
 ## lang
 
@@ -91,7 +95,7 @@ Waline 的服务端地址。
 - 默认值: `'zh-CN'`
 - 必填: 否
 
-多语言支持。
+Waline 显示语言
 
 可选值:
 
@@ -111,7 +115,7 @@ Waline 的服务端地址。
 - 默认值: `false`
 - 必填: 否
 
-文章访问量统计。
+文章访问量统计
 
 ## highlight
 
@@ -124,10 +128,10 @@ Waline 的服务端地址。
 ## avatarCDN
 
 - 类型: `string`
-- 默认值: `https://cdn.v2ex.com/gravatar/`
+- 默认值: `'https://cdn.v2ex.com/gravatar/'`
 - 必填: 否
 
-设置 Gravatar 头像 CDN 地址。
+Gravatar 头像 CDN 地址
 
 ## avatarForce
 
@@ -142,10 +146,10 @@ Waline 的服务端地址。
 ## emojiCDN
 
 - 类型: `string`
-- 默认值: `https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/`
+- 默认值: `'https://img.t.sinajs.cn/t4/appstyle/expression/ext/normal/'`
 - 必填: 否
 
-设置**表情包 CDN**，参考[自定义表情](./emoji.md)
+设置**表情包 CDN**，详见 [自定义表情](./emoji.md)
 
 ## emojiMaps
 
@@ -153,7 +157,7 @@ Waline 的服务端地址。
 - 默认值: `微博表情包`
 - 必填: 否
 
-设置**表情包映射**，参考[自定义表情](./emoji.md)
+设置**表情包映射**，详见 [自定义表情](./emoji.md)
 
 ## requiredFields
 
@@ -161,17 +165,20 @@ Waline 的服务端地址。
 - 默认值: `[]`
 - 必填: 否
 
-设置**必填项**，默认匿名，可选值:
-
-- `['nick']`
-- `['nick', 'mail']`
+设置**必填项**，默认匿名
 
 ## uploadImage
 
-- 类型: `Function`
+- 类型: `(image: File) => Promise<string>`
 - 必填: 否
 
-自定义图片上传方法，方便更好的存储图片。方法执行时会将图片对象传入。
+自定义图片上传方法，方便更好的存储图片。
+
+::: tip
+
+执行时会将图片对象传入，函数应以 Promise 形式返回图片的地址。
+
+:::
 
 ## anonymous
 

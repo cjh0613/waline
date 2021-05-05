@@ -14,7 +14,7 @@ export function ReactComponent({
   avatarCDN,
   meta = ['nick', 'mail', 'link'],
   pageSize = 10,
-  lang = 'zh-CN',
+  lang,
   langMode = {},
   highlight,
   serverURL,
@@ -67,8 +67,8 @@ export default function Waline({
   } catch (e) {
     // ignore error
   }
-  // compat multiple slash
-  serverURL = serverURL.replace(/\/+$/, '');
+  // remove ending slash
+  serverURL = serverURL.replace(/\/$/, '');
 
   // visitor count
   if (visitor) {
@@ -93,6 +93,7 @@ export default function Waline({
       addPromise.then((count) => Visitor.render(count, countEls));
     } else {
       const hasPath = restIds.length !== ids.length;
+
       (hasPath ? addPromise : Promise.resolve())
         .then(() => Visitor.get({ serverURL, paths: ids }))
         .then((counts) => Visitor.render(counts, countEls));

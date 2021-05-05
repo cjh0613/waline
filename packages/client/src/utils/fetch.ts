@@ -81,7 +81,10 @@ export const fetchVisitCount = ({ serverURL, path }: VisitCountOptions) => {
   return fetch(url).then((resp) => resp.json());
 };
 
-export const postVisitCount = ({ serverURL, path }: VisitCountOptions) => {
+export const postVisitCount = ({
+  serverURL,
+  path,
+}: VisitCountOptions): Promise<number> => {
   const url = `${serverURL}/article`;
   return fetch(url, {
     method: 'POST',
@@ -89,5 +92,5 @@ export const postVisitCount = ({ serverURL, path }: VisitCountOptions) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ path }),
-  }).then((resp) => resp.json());
+  }).then((resp) => resp.json() as Promise<number>);
 };
