@@ -1,4 +1,4 @@
-import type { Locale } from '../typings';
+import type { Locale } from '../config';
 
 const padWithZeros = (vNumber: number, width: number): string => {
   let numAsString = vNumber.toString();

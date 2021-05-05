@@ -1,4 +1,6 @@
-export default {
+import type { Locale } from './typings';
+
+const zhCNLocale: Locale = {
   nick: '昵称',
   mail: '邮箱',
   link: '网址(http://)',
@@ -35,3 +37,5 @@ export default {
   'code-401': '未经授权的操作，请检查你的AppId和AppKey.',
   'code-403': '访问被API域名白名单拒绝，请检查你的安全域名设置.',
 };
+
+export default zhCNLocale;

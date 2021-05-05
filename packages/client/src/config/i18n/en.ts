@@ -1,4 +1,6 @@
-export default {
+import type { Locale } from './typings';
+
+const enLocale: Locale = {
   nick: 'NickName',
   mail: 'E-Mail',
   link: 'Website(http://)',
@@ -41,3 +43,5 @@ export default {
   'code-403':
     'Access denied by API domain white list, Please check your security domain.',
 };
+
+export default enLocale;

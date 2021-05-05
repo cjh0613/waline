@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
+import CommentBox from './CommentBox';
 import { ConfigContext } from '../context';
 import { timeAgo } from '../utils';
-import CommentBox from './CommentBox';
 
 export default function CommentCard({ comment, boxConfig, rootId, onSubmit }) {
   const [reply, setReply] = useState(null);

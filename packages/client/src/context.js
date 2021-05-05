@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { emojiCDN, emojiMaps } from './config/default';
-import locales from './i18n';
+import { locales } from './config';
 import { gravatarSetting } from './config/constant';
 
 export const ConfigContext = React.createContext({

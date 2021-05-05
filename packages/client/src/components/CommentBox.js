@@ -12,12 +12,10 @@ import { CancelReplyIcon, EmojiIcon, MarkdownIcon, PreviewIcon } from './Icons';
 import {
   getMarkdownParser,
   getWordNumber,
-  parseEmoji,
-  postComment,
-} from '../utils';
-import {
   insertAtCaret as _insertAtCaret,
   onPasteFactory,
+  parseEmoji,
+  postComment,
   store,
 } from '../utils';
 

@@ -1,4 +1,6 @@
-export default {
+import type { Locale } from './typings';
+
+const zhTWLocale: Locale = {
   nick: '暱稱',
   mail: '郵箱',
   link: '網址(http://)',
@@ -35,3 +37,5 @@ export default {
   'code-401': '未經授權的操作，請檢查你的AppId和AppKey.',
   'code-403': '訪問被API域名白名單拒絕，請檢查你的安全域名設定.',
 };
+
+export default zhTWLocale;

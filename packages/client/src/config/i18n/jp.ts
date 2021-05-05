@@ -1,4 +1,6 @@
-export default {
+import type { Locale } from './typings';
+
+const jpLocale: Locale = {
   nick: 'ニックネーム',
   mail: 'メールアドレス',
   link: 'サイト(http://)',
@@ -37,3 +39,5 @@ export default {
   'code-403':
     'アクセスがAPIなどに制限されました、ドメイン名のセキュリティ設定を確認ください',
 };
+
+export default jpLocale;
