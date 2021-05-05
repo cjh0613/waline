@@ -2,13 +2,21 @@ import DOMPurify from 'dompurify';
 import hanabi from 'hanabi';
 import marked from 'marked';
 
+import type { EmojiMaps } from '../typings';
+
+interface Context {
+  emojiCDN: string;
+  emojiMaps: EmojiMaps;
+  [prop: string]: unknown;
+}
+
 /**
  * Add a hook to make all links open a new window
  * and force their rel to be 'noreferrer noopener'
  */
-DOMPurify.addHook('afterSanitizeAttributes', function (node) {
+DOMPurify.addHook('afterSanitizeAttributes', (node) => {
   // set all elements owning target to target=_blank
-  if ('target' in node) {
+  if ('target' in (node as HTMLElement)) {
     node.setAttribute('target', '_blank');
     node.setAttribute('rel', 'noreferrer noopener');
   }
@@ -21,17 +29,21 @@ DOMPurify.addHook('afterSanitizeAttributes', function (node) {
     node.setAttribute('xlink:show', 'new');
   }
 
-  if ('preload' in node) {
+  if ('preload' in (node as HTMLElement)) {
     node.setAttribute('preload', 'none');
   }
 });
 
-export const parseEmoji = (text, emojiMaps, emojiCDN) => {
+export const parseEmoji = (
+  text: string,
+  emojiMaps: EmojiMaps,
+  emojiCDN: string
+): string => {
   if (!text) {
     return '';
   }
 
-  return text.replace(/:(.+?):/g, (placeholder, key) => {
+  return text.replace(/:(.+?):/g, (placeholder, key: string) => {
     if (!emojiMaps[key]) {
       return placeholder;
     }
@@ -44,15 +56,18 @@ export const parseEmoji = (text, emojiMaps, emojiCDN) => {
   });
 };
 
-export const getMarkdownParser = (highlight, ctx) => {
+export const getMarkdownParser = (
+  highlight: boolean,
+  ctx: Context
+): ((comment: string) => string) => {
   marked.setOptions({
-    highlight: highlight === false ? null : hanabi,
+    highlight: highlight === false ? undefined : hanabi,
     breaks: true,
     smartLists: true,
     smartypants: true,
   });
 
-  return (comment) =>
+  return (comment: string): string =>
     DOMPurify.sanitize(
       marked(parseEmoji(comment, ctx.emojiMaps, ctx.emojiCDN)),
       {

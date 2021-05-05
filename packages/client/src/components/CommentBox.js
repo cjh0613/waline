@@ -18,8 +18,8 @@ import {
 import {
   insertAtCaret as _insertAtCaret,
   onPasteFactory,
-} from '../utils/dom.ts';
-import { store } from '../utils/store.ts';
+  store,
+} from '../utils';
 
 const metas = ['nick', 'mail', 'link'];
 

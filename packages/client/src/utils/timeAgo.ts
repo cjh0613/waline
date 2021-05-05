@@ -1,19 +1,24 @@
-const dateFormat = (date) => {
-  var vDay = padWithZeros(date.getDate(), 2);
-  var vMonth = padWithZeros(date.getMonth() + 1, 2);
-  var vYear = padWithZeros(date.getFullYear(), 2);
-  return `${vYear}-${vMonth}-${vDay}`;
-};
+import type { Locale } from '../typings';
 
-const padWithZeros = (vNumber, width) => {
-  var numAsString = vNumber.toString();
+const padWithZeros = (vNumber: number, width: number): string => {
+  let numAsString = vNumber.toString();
+
   while (numAsString.length < width) {
     numAsString = '0' + numAsString;
   }
+
   return numAsString;
 };
 
-export const timeAgo = (date, locale) => {
+const dateFormat = (date: Date): string => {
+  const vDay = padWithZeros(date.getDate(), 2);
+  const vMonth = padWithZeros(date.getMonth() + 1, 2);
+  const vYear = padWithZeros(date.getFullYear(), 2);
+
+  return `${vYear}-${vMonth}-${vDay}`;
+};
+
+export const timeAgo = (date: Date | string, locale: Locale): string | void => {
   if (!date) {
     return;
   }
@@ -42,17 +47,20 @@ export const timeAgo = (date, locale) => {
           //计算相差秒数
           const leave3 = leave2 % (60 * 1000); //计算分钟数后剩余的毫秒数
           const seconds = Math.round(leave3 / 1000);
-          return seconds + ` ${locale.seconds}`;
+
+          return `${seconds} ${locale.seconds}`;
         }
-        return minutes + ` ${locale.minutes}`;
+        return `${minutes} ${locale.minutes}`;
       }
-      return hours + ` ${locale.hours}`;
+      return `${hours} ${locale.hours}`;
     }
+
     if (days < 0) {
       return locale.now;
     }
+
     if (days < 8) {
-      return days + ` ${locale.days}`;
+      return `${days} ${locale.days}`;
     } else {
       return dateFormat(date);
     }

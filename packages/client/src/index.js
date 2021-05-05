@@ -94,7 +94,7 @@ export default function Waline({
     } else {
       const hasPath = restIds.length !== ids.length;
       (hasPath ? addPromise : Promise.resolve())
-        .then(() => Visitor.get({ serverURL, path: ids }))
+        .then(() => Visitor.get({ serverURL, paths: ids }))
         .then((counts) => Visitor.render(counts, countEls));
     }
   }
