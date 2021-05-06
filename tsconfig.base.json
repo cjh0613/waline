@@ -35,7 +35,6 @@
     "strict": true,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
-    "target": "ES2017",
-    "types": ["jest"]
+    "target": "ES2017"
   }
 }

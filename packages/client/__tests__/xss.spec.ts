@@ -1,7 +1,7 @@
-import { emojiCDN, emojiMaps } from '../src/config/default';
+import { defaultEmojiCDN, defaultEmojiMaps } from '../src/config';
 import { getMarkdownParser } from '../src/utils';
 
-const ctx = { emojiCDN, emojiMaps };
+const ctx = { emojiCDN: defaultEmojiCDN, emojiMaps: defaultEmojiMaps };
 const parser = getMarkdownParser(false, ctx);
 
 describe('XSS test', () => {

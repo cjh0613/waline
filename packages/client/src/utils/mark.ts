@@ -35,15 +35,11 @@ DOMPurify.addHook('afterSanitizeAttributes', (node) => {
 });
 
 export const parseEmoji = (
-  text: string,
-  emojiMaps: EmojiMaps,
-  emojiCDN: string
-): string => {
-  if (!text) {
-    return '';
-  }
-
-  return text.replace(/:(.+?):/g, (placeholder, key: string) => {
+  text = '',
+  emojiMaps: EmojiMaps = {},
+  emojiCDN = ''
+): string =>
+  text.replace(/:(.+?):/g, (placeholder, key: string) => {
     if (!emojiMaps[key]) {
       return placeholder;
     }
@@ -54,7 +50,6 @@ export const parseEmoji = (
         : emojiCDN + emojiMaps[key]
     })`;
   });
-};
 
 export const getMarkdownParser = (
   highlight: boolean,
