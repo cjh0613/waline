@@ -1,15 +1,7 @@
 import { fetchVisitCount, postVisitCount } from './fetch';
 
-import type { VisitCountOptions } from './fetch';
-
 export const Visitor = {
-  post({ serverURL, path }: VisitCountOptions): Promise<number> | null {
-    if (!serverURL || !path) {
-      return null;
-    }
-
-    return postVisitCount({ serverURL, path });
-  },
+  post: postVisitCount,
 
   get({ serverURL, paths }: { serverURL: string; paths: string[] }) {
     if (!paths.length) {
@@ -19,7 +11,7 @@ export const Visitor = {
     return fetchVisitCount({ serverURL, path: paths.join() });
   },
 
-  render(counts: string[] | string, countElements: HTMLElement[]): void {
+  render(counts: number[] | number, countElements: HTMLElement[]): void {
     if (!Array.isArray(counts)) {
       counts = new Array(countElements.length).fill(counts);
     }
@@ -33,7 +25,7 @@ export const Visitor = {
         counterEl = el;
       }
 
-      counterEl.innerText = (counts as string[])[idx];
+      counterEl.innerText = (counts as number[])[idx].toString();
     });
   },
 };

@@ -18,9 +18,12 @@ export interface FetchRecentOptions {
   count: number;
 }
 
-export const fetchRecent = ({ serverURL, count }: FetchRecentOptions) => {
+export const fetchRecent = ({
+  serverURL,
+  count,
+}: FetchRecentOptions): Promise<Comment[]> => {
   const url = `${serverURL}/comment?type=recent&count=${count}`;
-  return fetch(url).then((resp) => resp.json());
+  return fetch(url).then((resp) => resp.json() as Promise<Comment[]>);
 };
 
 export interface FetchListOptions {

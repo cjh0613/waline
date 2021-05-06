@@ -4,7 +4,7 @@ import CommentCard from './components/CommentCard';
 import { ConfigContext } from './context';
 import { fetchList } from './utils';
 
-const App = ({ boxConfig, listConfig, copyRight }) => {
+const App = ({ boxConfig, listConfig, copyright }) => {
   const ctx = useContext(ConfigContext);
   const [{ page, count, totalPages, loading, data }, dispatch] = useReducer(
     (state, action) => ({ ...state, ...action }),
@@ -100,7 +100,7 @@ const App = ({ boxConfig, listConfig, copyRight }) => {
           </button>
         </div>
       ) : null}
-      {copyRight ? (
+      {copyright ? (
         <div className="vpower text-right">
           Powered by{' '}
           <a

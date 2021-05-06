@@ -7,7 +7,7 @@ const pkgName = 'Waline';
 
 module.exports = {
   entry: {
-    [pkgName + '.min']: path.resolve(__dirname, 'src/index.js'),
+    [`${pkgName}.min`]: path.resolve(__dirname, 'src/index.tsx'),
   },
 
   output: {

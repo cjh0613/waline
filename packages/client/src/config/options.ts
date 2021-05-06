@@ -116,9 +116,7 @@ export interface WalineOptions {
   lang?: string;
 
   /**
-   * 自定义 waline 显示语言
-   *
-   * @deprecated
+   * @deprecated Use `locale` instead
    */
   langMode?: Locale;
 
@@ -194,4 +192,18 @@ export interface WalineOptions {
    * @default undefined
    */
   anonymous?: boolean;
+
+  /**
+   * @deprecated Use `copyright` instead
+   */
+  copyRight?: boolean;
+
+  /**
+   * 是否在页脚展示版权信息
+   *
+   * 为了支持 Waline，我们强烈建议你开启它
+   *
+   * @default true
+   */
+  copyright?: boolean;
 }

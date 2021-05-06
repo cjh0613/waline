@@ -1,3 +1,4 @@
+export * from './check';
 export * from './dom';
 export * from './fetch';
 export * from './mark';

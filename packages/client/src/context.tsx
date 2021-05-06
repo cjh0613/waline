@@ -9,6 +9,7 @@ import {
 } from './config';
 
 import type {
+  Avatar,
   EmojiMaps,
   Locale,
   Locales,
@@ -25,19 +26,19 @@ export type ContextOptions = Pick<
   | 'locale'
   | 'emojiCDN'
   | 'emojiMaps'
+  | 'avatar'
   | 'avatarCDN'
   | 'avatarForce'
   | 'uploadImage'
   | 'wordLimit'
-> &
-  Required<Pick<WalineOptions, 'avatar'>>;
+>;
 
 export interface UserInfo {
   nick: string;
   mail: string;
 }
 
-export interface Context {
+export interface ContextType {
   locales: Locales;
   locale: Locale;
   lang: string;
@@ -55,11 +56,11 @@ export interface Context {
   anonymous?: boolean;
 }
 
-export const ConfigContext = React.createContext<Context>(
+export const ConfigContext = React.createContext<ContextType>(
   ({} as unknown) as any
 );
 
-const Context = (props: ContextOptions & { children: JSX.Element[] }) => {
+const Context = (props: ContextOptions & { children: JSX.Element }) => {
   let storageUserInfo: UserInfo;
 
   const locale = {
@@ -79,7 +80,7 @@ const Context = (props: ContextOptions & { children: JSX.Element[] }) => {
 
   const [userInfo, setUserInfo] = useState<UserInfo>(storageUserInfo);
 
-  const context: Context = {
+  const context: ContextType = {
     locales,
     locale,
     lang: props.lang || defaultLang,
@@ -94,8 +95,8 @@ const Context = (props: ContextOptions & { children: JSX.Element[] }) => {
       cdn: props.avatarCDN || defaultGravatarSetting.cdn,
       ds: defaultGravatarSetting.ds,
       params: `?d=${
-        defaultGravatarSetting.ds.indexOf(props.avatar) > -1
-          ? props.avatar
+        defaultGravatarSetting.ds.includes(props.avatar as string)
+          ? (props.avatar as Avatar)
           : 'mp'
       }${
         props.avatarForce ? `&q=${Math.random().toString(32).substring(2)}` : ''
