@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const htmlWebpackPlugin = require('html-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { version } = require('./package.json');
 
 const pkgName = 'Waline';
@@ -63,6 +64,14 @@ module.exports = {
 
   plugins: [
     new webpack.DefinePlugin({ VERSION: JSON.stringify(version) }),
+    ...(process.env.ANALYZE
+      ? [
+          new BundleAnalyzerPlugin({
+            analyzerPort: 0,
+            defaultSizes: 'gzip',
+          }),
+        ]
+      : []),
     new htmlWebpackPlugin({
       inject: false,
       templateContent: ({ htmlWebpackPlugin }) => `

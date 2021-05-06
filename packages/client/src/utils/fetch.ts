@@ -74,7 +74,7 @@ export const postComment = ({
   }).then((resp) => resp.json());
 };
 
-export interface VisitCountOptions {
+export interface FetchVisitCountOptions {
   serverURL: string;
   paths: string[];
 }
@@ -82,17 +82,22 @@ export interface VisitCountOptions {
 export const fetchVisitCount = ({
   serverURL,
   paths,
-}: VisitCountOptions): Promise<number[]> => {
+}: FetchVisitCountOptions): Promise<number[]> => {
   const url = `${serverURL}/article?path=${encodeURIComponent(
     paths.join(',')
   )}`;
   return fetch(url).then((resp) => resp.json() as Promise<number[]>);
 };
 
+export interface PostVisitCountOptions {
+  serverURL: string;
+  path: string;
+}
+
 export const postVisitCount = ({
   serverURL,
   path,
-}: VisitCountOptions): Promise<number> => {
+}: PostVisitCountOptions): Promise<number> => {
   const url = `${serverURL}/article`;
   return fetch(url, {
     method: 'POST',
