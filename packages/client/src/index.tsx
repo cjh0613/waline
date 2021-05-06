@@ -18,29 +18,32 @@ import './styles/index.scss';
 
 declare const VERSION: string;
 
-export type WalineComponentOptions = Exclude<WalineOptions, 'el'>;
+export interface WalineComponentOptions
+  extends Exclude<WalineOptions, 'el' | 'path'> {
+  path: string;
+}
 
 const WalineComponent = ({
+  serverURL,
+  path,
   placeholder = 'Just Go Go.',
-  path = location.pathname,
+  highlight,
+  meta = ['nick', 'mail', 'link'],
+  requiredFields = [],
   avatar,
   avatarForce,
   avatarCDN,
-  meta = ['nick', 'mail', 'link'],
   pageSize = 10,
   lang,
   langMode,
   locale = langMode,
-  highlight,
-  serverURL,
   emojiCDN,
   emojiMaps,
-  requiredFields = [],
+  anonymous,
+  wordLimit = 0,
   copyRight = true,
   copyright = copyRight,
   uploadImage,
-  anonymous,
-  wordLimit = 0,
 }: WalineComponentOptions): JSX.Element => (
   <Context
     anonymous={anonymous}
@@ -57,11 +60,11 @@ const WalineComponent = ({
     <App
       boxConfig={{
         serverURL,
-        placeholder,
-        meta,
-        highlight,
-        requiredFields,
         path,
+        placeholder,
+        highlight,
+        meta,
+        requiredFields,
       }}
       listConfig={{ path, pageSize, serverURL, avatar }}
       copyright={copyright}
@@ -156,7 +159,7 @@ const Waline = (options: WalineOptions): void => {
   if (root) {
     render(
       <React.StrictMode>
-        <WalineComponent {...options} />
+        <WalineComponent {...(options as ResolvedWalineOptions)} />
       </React.StrictMode>,
       root
     );

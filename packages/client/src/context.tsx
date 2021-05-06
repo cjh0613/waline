@@ -57,10 +57,13 @@ export interface ContextType {
 }
 
 export const ConfigContext = React.createContext<ContextType>(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ({} as unknown) as any
 );
 
-const Context = (props: ContextOptions & { children: JSX.Element }) => {
+const Context = (
+  props: ContextOptions & { children: JSX.Element }
+): JSX.Element => {
   let storageUserInfo: UserInfo;
 
   const locale = {

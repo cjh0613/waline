@@ -43,16 +43,18 @@ const App = ({ boxConfig, listConfig, copyright }) => {
   const onSubmit = useCallback(
     (comment) => {
       if (comment.rid) {
-        const cmt = data.find(({ objectId }) => objectId === comment.rid);
+        const replyComment = data.find(
+          ({ objectId }) => objectId === comment.rid
+        );
 
-        if (!cmt) {
+        if (!replyComment) {
           return;
         }
 
-        if (!Array.isArray(cmt.children)) {
-          cmt.children = [];
+        if (!Array.isArray(replyComment.children)) {
+          replyComment.children = [];
         }
-        cmt.children.push(comment);
+        replyComment.children.push(comment);
       } else {
         data.unshift(comment);
       }

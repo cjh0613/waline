@@ -3,13 +3,7 @@ import { fetchVisitCount, postVisitCount } from './fetch';
 export const Visitor = {
   post: postVisitCount,
 
-  get({ serverURL, paths }: { serverURL: string; paths: string[] }) {
-    if (!paths.length) {
-      return;
-    }
-
-    return fetchVisitCount({ serverURL, path: paths.join() });
-  },
+  get: fetchVisitCount,
 
   render(counts: number[] | number, countElements: HTMLElement[]): void {
     if (!Array.isArray(counts)) {
